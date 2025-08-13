@@ -20,4 +20,28 @@
     printf("Conteúdo apontado por p: %f\n", *((float*)p));
     printf("Conteúdo apontado por p: %d\n", p);
 
-  
+// Vetor
+    
+    int vet[5] = {1,2,3,4,5};
+    int *p;
+    
+    p = vet;
+    
+    printf("Terceiro elemento: %d ou %d", p[2], *(p+2));
+    
+    return 0;  
+
+// Struct
+    
+    struct ponto {
+        int x, y;
+    }
+    
+    struct ponto q;
+    struct ponto *p;
+    
+    q.x = 10;
+    (*p).x = 10;
+    p -> x = 10;
+    
+    // ^^ Mesma coisa ^^
