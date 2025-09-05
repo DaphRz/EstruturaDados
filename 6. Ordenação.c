@@ -94,26 +94,21 @@
 
 // Insertion Sort
 
-  void insertionSort (int *v, int tam) {
+ void insertionSort (int *v, int tam) {
     
-    int aux,aux1;
-    aux1 = 1;
+    int aux, j;
   
-    for(int i = 0; i < tam; i++){
-    
-        if(v[i+1]<v[i]){
+    for(int i = 1; i < tam; i++){
           
-            aux = v[i+1];
-            v[i] = v[i+1];
-            v[i] = aux;
+        aux = v[i];
+            
+        for(j=i; (j>0) && (aux < v[j-1]); j--){
+            
+            v[j] = v[j-1];
         }
         
-    aux1++;
-    
-                            //for(int n = tam; n = 0; n--){
-                                
-                            //}
-    }
+        v[j] = aux;
+      }
   }
 
   void imprimir(int *v, int n){
@@ -122,7 +117,7 @@
     
     for(int i = 0; i<n; i++){
         printf(" %d ", v[i]);
-    }
+      }
   }
 
   int main(){
