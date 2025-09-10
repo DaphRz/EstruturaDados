@@ -1,24 +1,26 @@
 // Ponteiros 
     
     int *p, *p1, x = 10;
+    
     float y = 20.0;
     
     p = &x;
     
-    printf("Conteúdo apontado por p: %d\n", &x);
-    printf("Conteúdo apontado por p: %d\n", p);  // Conteúdo de p (endereço de x)
+    printf("Endereço de x: %d\n", &x);
+    printf("Conteúdo de p: %d\n", p);              // Conteúdo de p (endereço de x)
     printf("Conteúdo apontado por p: %d\n", *p);  // Conteúdo ao qual p aponta
 
-    p1 = p;
+    p1 = p;  // copia o endereço armazenado em p (que é o endereço de x) para p1.
     
     printf("\nConteúdo apontado por p1: %d\n", *p1);
+    printf("Conteúdo de p1: %d\n", p1);              // Conteúdo de p1 (endereço do x)
     
     p = &y;
     
-    printf("\nConteúdo apontado por p: %d\n", *p);
-    printf("Conteúdo apontado por p: %f\n", *p);
+    printf("\nConteúdo apontado por p: %d\n", *p);  // Erro - %d -> Comportamento Indefinido
+    printf("Conteúdo apontado por p: %f\n", *p);   // Resultado incorreto devido à incompatibilidade de tipos
     printf("Conteúdo apontado por p: %f\n", *((float*)p));
-    printf("Conteúdo apontado por p: %d\n", p);
+    printf("Conteúdo de p: %d\n", p);
 
 // Vetor
     
