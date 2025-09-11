@@ -22,6 +22,23 @@
     printf("Conteúdo apontado por p: %f\n", *((float*)p));
     printf("Conteúdo de p: %d\n", p);
 
+// Ponteiro de Ponteiro
+
+    int x = 10;
+    int *p1 = &x;
+    int **p2 = &p1;
+    
+    //Endereco em p2
+    printf("Endereço em p2: %p\n",p2);
+    printf("Endereço de p1: %p\n",&p1);
+    
+    //Conteudo do endereco
+    printf("\nConteudo em *p2: %p\n",*p2);
+    printf("Conteúdo de p1: %p\n",p1);
+    
+    //Conteudo do endereco do endereco
+    printf("\nConteudo em **p2: %d\n",**p2);
+
 // Vetor
     
     int vet[5] = {1,2,3,4,5};
