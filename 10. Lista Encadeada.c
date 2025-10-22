@@ -90,7 +90,7 @@
     
     int main(){
         
-        lista = *lst;          // declara lista
+        lista *lst;          // declara lista
         lst = criar_lista();  // inicializa a lista
 
         // As linhas a seguir criam e encadeiam células na stack (memória local)
@@ -116,9 +116,10 @@
             temp = temp -> seguinte;
         }
         
+        printf("\n\n");
         imprimir(lst);
         
-        printf("\n %d", buscar(lst, 3));
+        printf("\n\n%d\n\n", buscar(lst, 3));
 
         add_fim(lst, 4);
         imprimir(lst);
