@@ -4,16 +4,16 @@
     #include <stdlib.h>
     
     typedef struct celula{
-        int conteudo;
-        struct celula *seguinte;
+    int conteudo;
+    struct celula *seguinte;
     } celula;
     
     // typedef struct celula celula  // cria apelido
     
-    typedef struct celula* lista;  // apelido para ponteiro de célula
+    typedef struct celula* lista;  // apelido para ponteiro de célula (célula*)
     
     lista* criar_lista(){
-        lista *li = (lista*) malloc (sizeof(lista));
+        lista *li = (lista*) malloc (sizeof(lista));   // Aloca memória para o ponteiro da lista (celula**)
         
         if(li != NULL){     // se conseguiu alocar memória
             *li = NULL;    // inicializa a lista como vazia
@@ -21,9 +21,9 @@
         return li;       // li = NULL // retorna o ponteiro para o ponteiro da lista
     }
     
-    int add_fim(lista *lista, int x){   // ajustado para lista (celula*)
+    int add_fim(lista* l, int x){   // ajustado para lista (celula*) // // recebe lista* l (celula**)
         
-        if(lista == NULL) {return 0;}
+        if(l == NULL) {return 0;}
         
         celula* aux = (celula*) malloc(sizeof(celula));
         
@@ -32,32 +32,33 @@
         aux -> conteudo = x;
         aux -> seguinte = NULL;
         
-        if((*lista) == NULL) {   // estou inserindo o primeiro elemento
-            *lista = aux;       // se for o primeiro elemento da lista
-        } else {
+        if((*l) == NULL) {    // estou inserindo o primeiro elemento
+            *l = aux;        // se for o primeiro elemento da lista, // atualiza o ponteiro que aponta para o inicio da lista
+        } 
+        else {
             celula *temp;
-            temp = *lista;   // o primeiro elemento da lista
+            temp = *l;    // o primeiro elemento da lista
             
-            while(temp->seguinte != NULL){
-                temp = temp->seguinte;
+            while(temp -> seguinte != NULL){  //caminha até o utlimo elemento
+                temp = temp -> seguinte;
             }
             
-            temp->seguinte = aux;
+            temp -> seguinte = aux;
         }
         
         return 1;
     }
     
-    int imprimir(lista *lista){  
+    int imprimir(lista* l){   // recebe lista* l (celula**)
         
-        if(lista == NULL) {
-            printf("Lista não Existe!")
+        if(l == NULL) {
+            printf("Lista não Existe!");
         }
         
         celula *temp;
-        temp = *lista;  // temporário vai percorrer de 1 em 1
+        temp = *l;  // temporário vai percorrer de 1 em 1
         
-        printf("Minha Lista: ")
+        printf("Minha Lista: ");
         
         while(temp != NULL){
             
@@ -66,14 +67,14 @@
         }
     }
     
-    int buscar(lista *lista, int x){  
+    int buscar(lista* l, int x){  // recebe lista* l (celula**)
         
-        if(lista == NULL) {
-            printf("Lista não Existe!")
+        if(l == NULL) {
+            printf("Lista não Existe!");
             return 0;
         }
         
-        celula *temp = *lista;
+        celula *temp = *l;
     
         while(temp != NULL){
             
@@ -91,6 +92,9 @@
         
         lista = *lst;          // declara lista
         lst = criar_lista();  // inicializa a lista
+
+        // As linhas a seguir criam e encadeiam células na stack (memória local)
+        // O correto seria usar add_fim para gerenciar a lista alocada dinamicamente.
         
         celula c1, c2, c3;
         
@@ -103,8 +107,9 @@
         c3.seguinte = NULL;
         
         *lst = &c1;
-        // apontam pro msm lugar (início da lista)
+        // apontam pro msm lugar (início da lista) // Faz o ponteiro dinâmico 'lst' apontar para a célula estática 'c1'
         celula* temp = *lst;
+        // Bloco de impressão 1 (Exibe 1, 2, 3)
         
         while(temp != NULL){
             printf("\t%d", temp -> conteudo);  // ponteiro = -> ((*p).conteudo OU p -> conteudo)
@@ -114,6 +119,9 @@
         imprimir(lst);
         
         printf("\n %d", buscar(lst, 3));
+
+        add_fim(lst, 4);
+        imprimir(lst);
     
         return 0;
       }
