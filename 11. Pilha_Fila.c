@@ -118,7 +118,7 @@ int main(){
     return 0;
 }
 
-/*******************************************************************************************************************
+/******************************************************************************
 
 FILA
 
@@ -126,7 +126,7 @@ FILA
 * recebe de um lado (fim) e tira do outro (inicio)
 * ñ precisa necessariamente ter um max -- estamos usando Lista Encadeada, mas se tivessemos usando Vetor, precisaria
 
-*********************************************************************************************************************/
+*******************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -182,9 +182,10 @@ int enqueue(Fila* fi, int x){   // inserção
     return 1;
 }
 
-/*int pop(pilha* pi){
+//terminar 
+int dequeue(Fila* fi){
     
-    if(pi == NULL || (*pi) == NULL) {return -1;}  // se a pilha existe e se o conteúdo da pilha não é vazio
+    if(fi == NULL || (*fi) == NULL) {return -1;}  // se a pilha existe e se o conteúdo da pilha não é vazio
     
     elem *no = *pi;    
     *pi = no -> prox;  // *pi -> prox;
@@ -196,7 +197,7 @@ int enqueue(Fila* fi, int x){   // inserção
     return valor_retorno;
 }
 
-void excluir(pilha* pi){  // receber a pilha
+/*void excluir(pilha* pi){  // receber a pilha
     
     if(pi != NULL){
         elem *no;    // referencia pra ir caminhando na pilha
