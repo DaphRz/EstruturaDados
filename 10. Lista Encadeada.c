@@ -90,7 +90,7 @@
     
     int main(){
         
-        lista *lst;          // declara lista
+        lista *lst;            // declara lista
         lst = criar_lista();  // inicializa a lista
 
         // As linhas a seguir criam e encadeiam células na stack (memória local)
