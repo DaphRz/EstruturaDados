@@ -5,15 +5,15 @@
     
     typedef struct celula{
     int conteudo;
-    struct celula *seguinte;
+    struct celula *seguinte;  // criando um Ponteiro para outra Struct do mesmo tipo  
     } celula;
     
-    // typedef struct celula celula  // cria apelido
+    // typedef struct celula {} celula  // cria apelido
     
-    typedef struct celula* lista;  // apelido para ponteiro de célula (célula*)
+    typedef struct celula* lista;  // apelido para Ponteiro de Célula (celula*)
     
     lista* criar_lista(){
-        lista *li = (lista*) malloc (sizeof(lista));   // Aloca memória para o ponteiro da lista (celula**)
+        lista *li = (lista*) malloc (sizeof(lista));   // aloca memória para o Ponteiro da Lista (celula**)
         
         if(li != NULL){     // se conseguiu alocar memória
             *li = NULL;    // inicializa a lista como vazia
@@ -21,7 +21,7 @@
         return li;       // li = NULL // retorna o ponteiro para o ponteiro da lista
     }
     
-    int add_fim(lista* l, int x){   // ajustado para lista (celula*) // // recebe lista* l (celula**)
+    int add_fim(lista* l, int x){   // ajustado para lista (celula*) // recebe lista* l (celula**)
         
         if(l == NULL) {return 0;}
         
@@ -32,14 +32,14 @@
         aux -> conteudo = x;
         aux -> seguinte = NULL;
         
-        if((*l) == NULL) {    // estou inserindo o primeiro elemento
-            *l = aux;        // se for o primeiro elemento da lista, // atualiza o ponteiro que aponta para o inicio da lista
+        if(*l == NULL) {      // estou inserindo o primeiro elemento
+            *l = aux;        // se for o primeiro elemento da lista, atualiza o ponteiro que aponta para o inicio da lista
         } 
         else {
             celula *temp;
             temp = *l;    // o primeiro elemento da lista
             
-            while(temp -> seguinte != NULL){  //caminha até o utlimo elemento
+            while(temp -> seguinte != NULL){  //caminha até o último elemento
                 temp = temp -> seguinte;
             }
             
