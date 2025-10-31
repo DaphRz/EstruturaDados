@@ -37,9 +37,9 @@ int push(pilha* pi, int x){   // recebe pilha* p (elemento**)
     if(no == NULL) {return -1;}  // conferir se espaço foi alocado
         
     no -> conteudo = x;
-    no -> prox = (*pi);  // no->prox vai pegar o conteúdo de pilha
+    no -> prox = *pi;  // no->prox vai pegar o conteúdo de pilha
     
-     // colocou x no topo da pilha
+    // colocou x no topo da pilha
     // x tá apontando para o topo
     
     *pi = no;  // conteúdo de pilha está recebendo o nó
@@ -174,7 +174,7 @@ int enqueue(Fila* fi, int x){   // inserção
     }
     else {
         fi -> fim -> prox = no;  // FOTO -- lembrar das setas -> 4
-        fi -> fim = no;         //                        fim -> NULL
+        fi -> fim = no;          //                       fim -> NULL
     }
     
     fi -> quant++;
@@ -182,41 +182,46 @@ int enqueue(Fila* fi, int x){   // inserção
     return 1;
 }
 
-//terminar 
 int dequeue(Fila* fi){
-    
-    if(fi == NULL || (*fi) == NULL) {return -1;}  // se a pilha existe e se o conteúdo da pilha não é vazio
-    
-    elem *no = *pi;    
-    *pi = no -> prox;  // *pi -> prox;
-    
-    int valor_retorno = no -> conteudo;   // nó auxiliar para retornar o valor q eu tirei
-    
-    free(no);
-    
-    return valor_retorno;
+   
+    if(fi == NULL || (*fi) == NULL) {return -1;}  // Fila não existe ou vazia?
+   
+    elem *no = *fi;                                // Pega o frente (primeiro)
+    *fi = no -> prox;                              // Frente vira o segundo (remove 1º)
+   
+    int valor_retorno = no -> conteudo;            // Salva o valor removido
+   
+    free(no);                                      // Libera o nó
+   
+    return valor_retorno;                          // Retorna o que saiu da fila
 }
 
-/*void excluir(pilha* pi){  // receber a pilha
-    
-    if(pi != NULL){
-        elem *no;    // referencia pra ir caminhando na pilha
-        
-        while((*pi) != NULL){
-            
-            no = *pi;  // pega o topo
-            *pi = (*pi) -> prox;
-            free(no);
-        }
-        free(pi);
+void libera_fila(Fila *fi) {  // void: não retorna nada, só limpa
+    if (fi == NULL) return;   // Fila não existe? Sai fora!
+
+    elem *aux;                // Nó auxiliar pra liberar
+
+    while (*fi != NULL) {     // Enquanto fila não vazia...
+        aux = *fi;            // Pega o frente atual
+        *fi = (*fi)->prox;    // Frente vira o próximo (remove 1º)
+        free(aux);            // Libera o nó removido
     }
+
+    free(fi);                 // Por último: libera o ponteiro da cabeça
 }
 
-int consulta_topo(pilha* pi){
+int consulta_inicio(Fila *fi) {
+    if (fi == NULL || *fi == NULL) return -1;  // Fila inválida/vazia?
     
-    if(pi == NULL || (*pi) == NULL) {return -1;}   // *pi = conteúdo da pilha é um nó
+    return (*fi)->conteudo;  // Só espiar o topo!
+}
+
+int consulta_fim(Fila *fi) {
+    if (fi == NULL || fi->quant == 0) {  // Fila não existe ou vazia?
+        return -1;                       // Erro: nada pra consultar
+    }
     
-    return (*pi) -> conteudo;                     // tô indo no nó e mostrando o conteúdo (int)
+    return fi->fim->conteudo;            // Direto no fim: O(1)!
 }
 
 // não se faz essa função pq usa o conceito de Lista Encadeada
