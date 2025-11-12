@@ -99,6 +99,30 @@ int altura(ArvBin *raiz){
         return alt_dir+1;
     }
 }
+
+void libera_NO(NO *no){   // recebe ponteiro de nó
+    
+    if(no == NULL){
+        return;
+    }
+    
+    libera_NO(no->esq);
+    libera_NO(no->dir);
+    
+    free(no);
+    no = NULL;   // ter certeza q nao tem nenhum lixo lá
+}
+
+void libera_ArvBin(ArvBin *raiz){
+    
+    if(raiz == NULL){
+        return;
+    }
+    
+    libera_no(*raiz);   // passa conteudo da raiz (*raiz)
+    
+    free(raiz);        // só apagando o ponteiro de ponteiro
+}
     
 int main(){
     
@@ -202,6 +226,77 @@ int consulta(ArvBin *raiz, int valor){
             atual= atual->esq;
         }
     } return 0;
+}
+
+void libera_NO(NO *no){   // recebe ponteiro de nó
+    
+    if(no == NULL){
+        return;
+    }
+    
+    libera_NO(no->esq);
+    libera_NO(no->dir);
+    
+    free(no);
+    no = NULL;   // ter certeza q nao tem nenhum lixo lá
+}
+
+void libera_ArvBin(ArvBin *raiz){
+    
+    if(raiz == NULL){
+        return;
+    }
+    
+    libera_no(*raiz);   // passa conteudo da raiz (*raiz)
+    
+    free(raiz);        // só apagando o ponteiro de ponteiro
+}
+
+int insere(ArvBin *raiz, int valor){
+    
+    if(raiz == NULL){   // arvore existe?
+        return 0;
+    }
+    
+    NO *novo = (NO*) malloc(sizeof(NO));
+    
+    if(novo == NULL){
+        return 0;
+    }
+    
+    novo->info = valor;
+    novo->esq = NULL;
+    novo->dir = NULL;   // precisa pq na estrutura eu já setei 2 nós esq e dir
+    
+    if(*raiz == NULL){   // se a arvore está vazia
+        *raiz = novo;
+    }
+    else{
+        NO *atual = *raiz;   // ponteiro de no recebe conteudo da raiz
+        NO *anterior = NULL;
+        
+        while(atual != NULL){   // enquanto nao cai no buraco (ultimo = null)
+        
+            anterior = atual;
+            
+            if(valor == atual->info){   // nao permitir repetição
+                free(novo);
+                return 0;
+            }
+            if(valor>atual->info){
+                atual = atual->dir;
+            } else{
+                atual = atual->esq;
+            }
+        }
+        
+        if(valor>anterior->info){
+            anterior->dir = novo;   // recebe a ref do novo
+        } else{
+            anterior->esq = novo;
+        }
+    }
+    return 1;   // sucesso // return 0 -> fracasso
 }
     
 int main(){
