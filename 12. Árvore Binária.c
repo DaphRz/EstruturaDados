@@ -1,6 +1,6 @@
 /******************************************************
 
-Árvore Binária
+                  Árvore Binária
 
 * feita de ponteiro de ponteiro (**)
 * (*p).info = p -> info
@@ -179,7 +179,7 @@ int main(){
 
 /******************************************************
 
-Árvore Binária De Busca
+              Árvore Binária De Busca
 
 * ñ pode ter valor repetido
 
