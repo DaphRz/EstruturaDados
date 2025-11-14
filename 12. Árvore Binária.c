@@ -182,6 +182,7 @@ int main(){
               Árvore Binária De Busca
 
 * ñ pode ter valor repetido
+* raiz é oq aponta pra cabeça (primeiro elemento)
 
 *******************************************************/
 
@@ -297,6 +298,79 @@ int insere(ArvBin *raiz, int valor){
         }
     }
     return 1;   // sucesso // return 0 -> fracasso
+}
+
+NO* remove_atual(NO *atual){   // vai receber o no q precisa ser removido
+    
+    NO *no1, *no2;   // ponteiro no1 (anterior) e ponteiro no2 (atual)
+    
+    if(atual->esq == NULL){
+        
+        no2 = atual->dir;
+        
+        free(atual);
+        
+        return no2;
+    }
+    
+    no1 = atual;
+    no2 = atual->esq;
+    
+    while(no2->dir != NULL){   // quando terminar o no2 vai ser o mais à direita possível
+        
+        no1 = no2;
+        no2 = no2->dir;
+    }   
+    
+    if(no1 != atual){   // pegar o elemento mais à direita da sub-arvore da esq
+        
+        no1->dir = no2->esq;
+        no2->esq = atual->esq;
+    }
+    
+    no2->dir = atual->dir;
+    
+    free(atual);
+    return(no2);
+}
+
+int remove_bool(ArvBin *raiz, int valor){   // só pegando o cara q vai ser removido
+    
+    if(raiz == NULL){   // raiz nula, arvore nao existe
+        return 0;
+    }
+    
+    NO *anterior = NULL;
+    NO *atual = *raiz     // no atual q começa com o ponteiro da raiz
+    
+    while(atual != NULL){   // se sair é pq não tem o cara pra remover
+        
+        if(valor == atual->info){
+            
+            if(atual == *raiz)   // igual ao conteudo da raiz = primeiro elemento
+            {
+                *raiz = remove_atual(atual);
+            }
+            else{
+                
+                if(anterior->dir == atual){
+                    anterior->dir = remove_atual(atual);
+                } else{
+                    anterior->esq = remove_atual(atual);
+                }
+            }
+        }
+        else{
+            anterior = atual;
+        
+            if(valor>atual->info){
+                atual = atual->dir;
+            } else{
+                atual = atual->esq;
+            }
+        }
+    }
+    return 0;
 }
     
 int main(){
